@@ -28,13 +28,8 @@ namespace OOP_RPG
         
         // method add new monster to the game
         public void AddMonster(string name, int strength, int defense, int hp) {
-            var monster = new Monster();
-            monster.Name = name;
-            monster.Strength = strength;
-            monster.Defense = defense;
-            monster.OriginalHP = hp;
-            monster.CurrentHP = hp;
-            this.Monsters.Add(monster);
+          
+            this.Monsters.Add(new Monster(name, strength, defense, hp));
         }
         
         public void MonsterMenu()
