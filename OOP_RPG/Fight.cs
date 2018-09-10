@@ -45,40 +45,59 @@ namespace OOP_RPG
             Console.WriteLine("4. Fight first monster with a strength of at least 11");
             Console.WriteLine("5. Fight random monster");
             var input = Console.ReadLine();
-            if (input == "1")
+            if (!Monsters.Any()) //if list is empty return to main menu
             {
-                this.Start(Monsters.Last());
-            }
-            else if (input == "2")
-            {
-                this.Start(Monsters[1]);
-            }
-            else if (input == "3")
-            {
-                this.Start(Monsters.Where(p => p.OriginalHP < 20).ToList().First());
-            }
-            else if (input == "4")
-            {
-                this.Start(Monsters.Where(p => p.Strength >= 11).ToList().First());
-            }
-            else if (input == "5")
-            {
-                var randmonNumber = new Random();
-
-                this.Start(Monsters[randmonNumber.Next(Monsters.Count)]);
+                Console.WriteLine();
+                Console.WriteLine("No monster to fight");
+                Console.WriteLine();
+                game.Main();
             }
             else
             {
-                return;
-            }
+                if (input == "1")
+                {
+                    this.Start(Monsters.LastOrDefault());
+
+                }
+                else if (input == "2")
+                {
+
+                    this.Start(Monsters.ElementAtOrDefault(1));
+                }
+                else if (input == "3")
+                {
+                    this.Start(Monsters.Where(p => p.OriginalHP < 20).ToList().FirstOrDefault());
+                }
+                else if (input == "4")
+                {
+                    this.Start(Monsters.Where(p => p.Strength >= 11).ToList().FirstOrDefault());
+                }
+                else if (input == "5")
+                {
+                    var randmonNumber = new Random();
+
+                    this.Start(Monsters[randmonNumber.Next(Monsters.Count)]);
+                }
+                else
+                {
+                    return;
+                }
+           }
+           
         }
 
         // start the fight with first  monste in monster List
         public void Start(Monster monster)
         {
-
+            if (monster == null)
+            {
+                Console.WriteLine();
+                Console.WriteLine("No monster to fight");
+                Console.WriteLine();
+                game.Main();
+            }
             this.monster = monster;
-
+            Console.WriteLine();
             Console.WriteLine("You've encountered a " + monster.Name + "! " + monster.Strength + " Strength/" + monster.Defense + " Defense/" +
             monster.CurrentHP + " HP. What will you do?");
             Console.WriteLine("1. Fight");
