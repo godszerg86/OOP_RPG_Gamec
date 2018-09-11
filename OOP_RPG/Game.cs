@@ -16,7 +16,11 @@ namespace OOP_RPG
             Console.WriteLine("Welcome hero!");
             Console.WriteLine("Please enter your name:");
             this.hero.Name = Console.ReadLine();
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("Hello " + hero.Name);
+            Console.ResetColor();
+            Console.WriteLine();
             this.Main();
         }
 

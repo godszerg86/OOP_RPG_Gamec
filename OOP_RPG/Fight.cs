@@ -39,6 +39,7 @@ namespace OOP_RPG
 
 
             Console.WriteLine("Please choose an option by entering a number.");
+            Console.WriteLine("0. Show me all monsters!");
             Console.WriteLine("1. Fight last monster");
             Console.WriteLine("2. Fight second monster");
             Console.WriteLine("3. Fight first monster with less than 20 hit points");
@@ -54,6 +55,10 @@ namespace OOP_RPG
             }
             else
             {
+                if (input == "0")
+                {
+                    ShowMonsterList();
+                }
                 if (input == "1")
                 {
                     this.Start(Monsters.LastOrDefault());
@@ -86,6 +91,11 @@ namespace OOP_RPG
            
         }
 
+        //private void ShowMonsterList()
+        //{
+        //    throw new NotImplementedException();
+        //}
+
         // start the fight with first  monste in monster List
         public void Start(Monster monster)
         {
@@ -99,7 +109,7 @@ namespace OOP_RPG
             this.monster = monster;
             Console.WriteLine();
             Console.WriteLine("You've encountered a " + monster.Name + "! " + monster.Strength + " Strength/" + monster.Defense + " Defense/" +
-            monster.CurrentHP + " HP. What will you do?");
+            monster.CurrentHP + " HP. He has a loot of "+monster.Gold+" gold. What will you do?");
             Console.WriteLine("1. Fight");
             var input = Console.ReadLine();
             if (input == "1")
@@ -128,8 +138,11 @@ namespace OOP_RPG
                 damage = compare;
                 monster.CurrentHP -= damage;
             }
+            Console.WriteLine();
+            Console.BackgroundColor = ConsoleColor.DarkGreen;
             Console.WriteLine("You did " + damage + " damage!");
-
+            Console.ResetColor();
+            Console.WriteLine();
             if (monster.CurrentHP <= 0)
             {
                 this.Win();
@@ -157,7 +170,11 @@ namespace OOP_RPG
                 damage = compare;
                 hero.CurrentHP -= damage;
             }
+            Console.WriteLine();
+            Console.BackgroundColor = ConsoleColor.DarkRed;
             Console.WriteLine(monster.Name + " does " + damage + " damage!");
+            Console.ResetColor();
+            Console.WriteLine();
             if (hero.CurrentHP <= 0)
             {
                 this.Lose();
@@ -172,7 +189,14 @@ namespace OOP_RPG
         // win method
         public void Win()
         {
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("*********VICTORY********");
             Console.WriteLine(monster.Name + " has been defeated! You win the battle!");
+            Console.WriteLine("You collected "+monster.Gold+" gold!");
+            Console.ResetColor();
+            Console.WriteLine();
+            hero.AddGold(monster.Gold);
             game.Main();
         }
 
@@ -184,6 +208,27 @@ namespace OOP_RPG
             return;
         }
 
+        private void ShowMonsterList()
+        {
+            Console.WriteLine();
+            Console.WriteLine("Here is monster list. Pick one to fight.");
+            foreach (var monster in Monsters)
+            {
+                Console.WriteLine($"{monster.Name} with HP: {monster.OriginalHP}, STR: {monster.Strength}, DEF: {monster.Defense} and gold loot of {monster.Gold}");
+                Console.WriteLine("Do you want to fight this monster?");
+                Console.WriteLine("Press [F] to fight or any key for next monster");
+                var input = Console.ReadLine();
+                if (input == "F" || input == "f")
+                {
+                    this.Start(monster);
+                    return;
+                }
+               
+            }
+
+            game.Main();
+
+        }
     }
 
 }

@@ -10,6 +10,7 @@ namespace OOP_RPG
         public int Defense { get; set; }
         public int OriginalHP { get; set; }
         public int CurrentHP { get; set; }
+        public int Gold { get; set; }
 
         public Monster(string name = "Monster", int strength = 5, int defense = 2, int originalHP = 10)
         {
@@ -18,7 +19,7 @@ namespace OOP_RPG
             this.Defense = defense;
             this.OriginalHP = originalHP;
             this.CurrentHP = originalHP;
-            
+            this.Gold = new Random().Next(2, strength);
         }
     }
 

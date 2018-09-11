@@ -20,6 +20,7 @@ namespace OOP_RPG
             this.Defense = 10;
             this.OriginalHP = 30;
             this.CurrentHP = 30;
+            this.Gold = 0;
         }
         
         // These are the Properties of our Class.
@@ -30,7 +31,8 @@ namespace OOP_RPG
         public int CurrentHP { get; set; }
         public Weapon EquippedWeapon { get; set; }
         public Armor EquippedArmor { get; set; }
-        
+        public int Gold { get; set; }
+
         public List<Armor> ArmorsBag { get; set;}
         public List <Weapon> WeaponsBag { get; set; }
         
@@ -43,15 +45,27 @@ namespace OOP_RPG
         }
         
         public void ShowInventory() {
+            Console.WriteLine();
+            Console.BackgroundColor = ConsoleColor.DarkCyan;
             Console.WriteLine("*****  INVENTORY ******");
+            Console.WriteLine();
+            Console.ResetColor();
+            Console.BackgroundColor = ConsoleColor.DarkMagenta;
             Console.WriteLine("Weapons: ");
-            foreach(var w in this.WeaponsBag){
+            Console.ResetColor();
+            foreach (var w in this.WeaponsBag){
                 Console.WriteLine(w.Name + " of " + w.Strength + " Strength");
             }
+            Console.BackgroundColor = ConsoleColor.DarkRed;
             Console.WriteLine("Armor: ");
+            Console.ResetColor();
             foreach(var a in this.ArmorsBag){
                 Console.WriteLine(a.Name + " of " + a.Defense + " Defense");
             }
+            Console.BackgroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("Gold: " + this.Gold);
+            Console.ResetColor();
+           
         }
         
         public void EquipWeapon() {
@@ -65,6 +79,10 @@ namespace OOP_RPG
                 this.EquippedArmor = this.ArmorsBag[0];
             }
         }
-        
+
+        internal void AddGold(int gold)
+        {
+            this.Gold = gold;
+        }
     }
 }
