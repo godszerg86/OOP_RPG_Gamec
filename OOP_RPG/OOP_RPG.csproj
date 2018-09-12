@@ -44,6 +44,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Armor.cs" />
+    <Compile Include="IItem.cs" />
+    <Compile Include="Potion.cs" />
+    <Compile Include="Shop.cs" />
     <Compile Include="Fight.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Hero.cs" />
