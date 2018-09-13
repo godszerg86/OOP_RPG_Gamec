@@ -16,11 +16,12 @@ namespace OOP_RPG
         public Hero() {
             this.ArmorsBag = new List<Armor>();
             this.WeaponsBag = new List<Weapon>();
+            this.PotionBag = new List<Potion>();
             this.Strength = 10;
             this.Defense = 10;
             this.OriginalHP = 30;
             this.CurrentHP = 30;
-            this.Gold = 0;
+            this.Gold = 100;
         }
         
         // These are the Properties of our Class.
@@ -35,7 +36,8 @@ namespace OOP_RPG
 
         public List<Armor> ArmorsBag { get; set;}
         public List <Weapon> WeaponsBag { get; set; }
-        
+        public List<Potion> PotionBag { get; internal set; }
+
         //These are the Methods of our Class.
         public void ShowStats() {
             Console.WriteLine("*****" + this.Name + "*****");
@@ -61,6 +63,13 @@ namespace OOP_RPG
             Console.ResetColor();
             foreach(var a in this.ArmorsBag){
                 Console.WriteLine(a.Name + " of " + a.Defense + " Defense");
+            }
+            Console.BackgroundColor = ConsoleColor.DarkRed;
+            Console.WriteLine("Potions: ");
+            Console.ResetColor();
+            foreach (var a in this.PotionBag)
+            {
+                Console.WriteLine(a.Name + " of " + a.HP + " HP");
             }
             Console.BackgroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("Gold: " + this.Gold);
