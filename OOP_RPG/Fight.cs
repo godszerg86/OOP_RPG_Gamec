@@ -111,10 +111,16 @@ namespace OOP_RPG
             Console.WriteLine("You've encountered a " + monster.Name + "! " + monster.Strength + " Strength/" + monster.Defense + " Defense/" +
             monster.CurrentHP + " HP. He has a loot of "+monster.Gold+" gold. What will you do?");
             Console.WriteLine("1. Fight");
+            Console.WriteLine("2. Use potion");
             var input = Console.ReadLine();
             if (input == "1")
             {
                 this.HeroTurn();
+            }
+            else if (input == "2")
+            {
+                hero.DrinkPotion();
+                this.Start(monster);
             }
             else
             {

@@ -127,6 +127,47 @@ namespace OOP_RPG
             }
         }
 
+        internal void DrinkPotion()
+        {
+            if (this.CurrentHP == this.OriginalHP)
+            {
+                Console.WriteLine();
+                Console.WriteLine($"Your HP is FULL. You dont need to heal.");
+                Console.WriteLine();
+                return;
+            }
+
+            if (this.PotionBag.Any())
+            {
+                if (this.OriginalHP - this.CurrentHP < this.PotionBag[0].HP)
+                {
+                    int DiffHP = this.OriginalHP - this.CurrentHP;
+                    this.CurrentHP = this.OriginalHP;
+                    Console.WriteLine();
+                    Console.WriteLine($"You drank a potion and restored {DiffHP} HP");
+                    Console.WriteLine($"Current HP is {this.CurrentHP}.");
+                    this.PotionBag.RemoveAt(this.PotionBag.Count - 1);
+                    Console.WriteLine($"Potions left: {this.PotionBag.Count}");
+                    Console.WriteLine();
+                    return;
+                }
+                this.CurrentHP += this.PotionBag[0].HP;
+                
+                Console.WriteLine();
+                Console.WriteLine($"You drank a potion and restored {this.PotionBag[0].HP} HP");
+                Console.WriteLine($"Current HP is {this.CurrentHP}.");
+                this.PotionBag.RemoveAt(this.PotionBag.Count - 1);
+                Console.WriteLine($"Potions left: {this.PotionBag.Count}");
+                Console.WriteLine();
+                return;
+                
+            } else
+            {
+                Console.WriteLine();
+                Console.WriteLine("Sorry. No potions available.");
+            }
+        }
+
         private void EquipNewWeapon(Weapon weapon)
         {
             if (this.EquippedWeapon == null)
@@ -342,6 +383,7 @@ namespace OOP_RPG
             else
             {
                 Console.WriteLine();
+
                 Console.WriteLine("Inventory is empty!");
             }
 
