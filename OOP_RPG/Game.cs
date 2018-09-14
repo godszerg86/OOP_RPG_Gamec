@@ -68,26 +68,20 @@ namespace OOP_RPG
             if (input == "1")
             {
                 this.DisplayShopItemsForSell();
+                this.DisplayShopMenu();
             }
             else if (input == "2")
             {
-                this.DisplayHeroInventoryToSell();
+                hero.DisplayHeroInventoryToSell(shop,hero);
+                this.DisplayShopMenu();
             }
-            else if (input == "3")
-            {
-                this.Main();
-            }
-
             else
             {
                 this.Main();
             }
         }
 
-        private void DisplayHeroInventoryToSell()
-        {
-            throw new NotImplementedException();
-        }
+
 
         private void DisplayShopItemsForSell()
         {
@@ -95,21 +89,22 @@ namespace OOP_RPG
             Console.WriteLine("1. Show me armor list");
             Console.WriteLine("2. Show me weapon list");
             Console.WriteLine("3. Show me potion list");
+            Console.WriteLine("4. Back");
             var input = Console.ReadLine();
             if (input == "1")
             {
                 shop.DisplayArmor(hero);
-                this.Main();
+                this.DisplayShopMenu();
             }
             else if (input == "2")
             {
                 shop.DisplayWeapon(hero);
-                this.Main();
+                this.DisplayShopMenu();
             }
             else if (input == "3")
             {
                 shop.DisplayPotions(hero);
-                this.Main();
+                this.DisplayShopMenu();
             }
          
             else
@@ -122,6 +117,7 @@ namespace OOP_RPG
         public void Stats() {
             hero.ShowStats();
             Console.WriteLine("Press any key to return to main menu.");
+            Console.WriteLine();
             Console.ReadKey();
             this.Main();
         }
@@ -129,6 +125,7 @@ namespace OOP_RPG
         public void Inventory(){
             hero.ShowInventory();
             Console.WriteLine("Press any key to return to main menu.");
+            Console.WriteLine();
             Console.ReadKey();
             this.Main();
         }

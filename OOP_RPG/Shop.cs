@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OOP_RPG
 {
-    internal class Shop : IShop
+    public class Shop : IShop
     {
 
         public List<Weapon> ShopWeapons { get; set; }
@@ -36,6 +36,7 @@ namespace OOP_RPG
             {
                 Console.WriteLine($"{i + 1}. {this.ShopWeapons[i].Name}. Strength: {this.ShopWeapons[i].Strength}. Cost: {this.ShopWeapons[i].OriginalValue} gold.");
             }
+            Console.WriteLine("Or press any other key to return to shop menu!");
             //check for correct input
             bool result = Int32.TryParse(Console.ReadLine(),out int input);
             if (result == false || input > ShopWeapons.Count)
@@ -57,6 +58,8 @@ namespace OOP_RPG
             {
                 Console.WriteLine($"{i + 1}. {ShopArmor[i].Name}. Defense: {ShopArmor[i].Defense}. Cost: {ShopArmor[i].OriginalValue} gold.");
             }
+            Console.WriteLine("Or press any other key to return to shop menu!");
+
             //check for correct input
             bool result = Int32.TryParse(Console.ReadLine(), out int input);
             if (result == false || input > ShopArmor.Count)
@@ -76,6 +79,7 @@ namespace OOP_RPG
             {
                 Console.WriteLine($"{i + 1}. {ShopPotion[i].Name}. Defense: {ShopPotion[i].HP}. Cost: {ShopPotion[i].OriginalValue} gold.");
             }
+            Console.WriteLine("Or press any other key to return to shop menu!");
             //check for correct input
             bool result = Int32.TryParse(Console.ReadLine(), out int input);
             if (result == false || input > ShopPotion.Count)
@@ -86,11 +90,37 @@ namespace OOP_RPG
             }
             // if input correct call sell function with current item
             this.SellItemToHero(hero, ShopPotion[input - 1], "3");
+
         }
 
-        internal void BuyItemFromHero()
+        internal void BuyItemFromHero(Hero hero, IItem itemToRemove)
         {
+            foreach (var item in hero.ArmorsBag)
+            {
+                if (itemToRemove.Equals(item))
+                {
+                    hero.ArmorsBag.Remove((Armor)itemToRemove);
+                    return;
+                }
+            }
+            foreach (var item in hero.WeaponsBag)
+            {
+                if (itemToRemove.Equals(item))
+                {
+                    hero.WeaponsBag.Remove((Weapon)itemToRemove);
+                    return;
+                }
+            }
+            foreach (var item in hero.PotionBag)
+            {
+                if (itemToRemove.Equals(item))
+                {
+                    hero.PotionBag.Remove((Potion)itemToRemove);
+                    return;
+                }
+            }
 
+           
         }
 
         internal void SellItemToHero(Hero hero, IItem item, string itemType)
@@ -122,12 +152,13 @@ namespace OOP_RPG
             Console.WriteLine();
             
             Console.Write($"Great! You just bought an ");
-            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.ForegroundColor = ConsoleColor.Blue;
             Console.Write(item.Name);
             Console.ResetColor();
             Console.Write(" !!!");
 
             Console.WriteLine($"Come back any time!");
+            Console.WriteLine();
             return;
         }
     }

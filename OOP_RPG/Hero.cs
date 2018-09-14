@@ -91,7 +91,48 @@ namespace OOP_RPG
 
         internal void AddGold(int gold)
         {
-            this.Gold = gold;
+            this.Gold += gold;
+        }
+
+        public void DisplayHeroInventoryToSell(Shop shop, Hero hero)
+        {
+            Console.WriteLine();
+            Console.WriteLine("Here is hero's inventory. Pick item to sell");
+            int iterator = 1;
+            Dictionary<int, IItem> tempDictionary = new Dictionary<int, IItem>();
+            foreach (var item in this.ArmorsBag)
+            {
+                Console.WriteLine($"{iterator}. {item.Name}  - Sell for {item.ResellValue} gold.");
+                tempDictionary.Add(iterator, item);
+                iterator++;
+            }
+            foreach (var item in this.WeaponsBag)
+            {
+                Console.WriteLine($"{iterator}. {item.Name}  - Sell for {item.ResellValue} gold.");
+                tempDictionary.Add(iterator, item);
+                iterator++;
+            }
+            foreach (var item in this.PotionBag)
+            {
+                Console.WriteLine($"{iterator}. {item.Name}  - Sell for {item.ResellValue} gold.");
+                tempDictionary.Add(iterator, item);
+                iterator++;
+            }
+            bool result = Int32.TryParse(Console.ReadLine(), out int input);
+            if (result == false || input > iterator-1 || input == 0)
+            {
+                Console.WriteLine();
+                Console.WriteLine("Wrong item!");
+                return;
+            }
+
+            shop.BuyItemFromHero(hero, tempDictionary[input]);
+            this.AddGold(tempDictionary[input].ResellValue);
+            Console.WriteLine();
+            Console.WriteLine($"{tempDictionary[input].Name} was sold for {tempDictionary[input].ResellValue} gold.");
+            Console.WriteLine($"Your total gold now {hero.Gold}");
+            Console.WriteLine();
+          
         }
     }
 }
