@@ -93,8 +93,10 @@ namespace OOP_RPG
 
         }
 
+
         internal void BuyItemFromHero(Hero hero, IItem itemToRemove)
         {
+            
             foreach (var item in hero.ArmorsBag)
             {
                 if (itemToRemove.Equals(item))

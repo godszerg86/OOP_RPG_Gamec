@@ -33,8 +33,9 @@ namespace OOP_RPG
             Console.WriteLine("Please choose an option by entering a number.");
             Console.WriteLine("1. View Stats");
             Console.WriteLine("2. View Inventory");
-            Console.WriteLine("3. Fight Monster");
-            Console.WriteLine("4. Go to shop");
+            Console.WriteLine("3. Equip Items");
+            Console.WriteLine("4. Fight Monster");
+            Console.WriteLine("5. Go to shop");
             var input = Console.ReadLine();
             if (input == "1") {
                 this.Stats();
@@ -43,9 +44,14 @@ namespace OOP_RPG
                 this.Inventory();
             }
             else if (input == "3") {
-                this.Fight();
+                hero.ShowEquipmentMenu();
+                this.Main();
             }
             else if (input == "4")
+            {
+                this.Fight();
+            }
+            else if (input == "5")
             {
                 this.DisplayShopMenu();
             }
@@ -67,17 +73,35 @@ namespace OOP_RPG
             var input = Console.ReadLine();
             if (input == "1")
             {
+
                 this.DisplayShopItemsForSell();
                 this.DisplayShopMenu();
             }
             else if (input == "2")
             {
-                hero.DisplayHeroInventoryToSell(shop,hero);
+                this.DisplaySellMenu();
+                
                 this.DisplayShopMenu();
             }
             else
             {
                 this.Main();
+            }
+        }
+
+        internal void DisplaySellMenu()
+        {
+            Console.WriteLine();
+            Console.WriteLine("1. Sell equiped items");
+            Console.WriteLine("2. Sell inventory items");
+            var input = Console.ReadLine();
+            if (input == "1")
+            {
+                hero.SellEquipedItems();
+            }
+            else if (input == "2")
+            {
+                hero.DisplayHeroInventoryToSell(shop,hero);
             }
         }
 
