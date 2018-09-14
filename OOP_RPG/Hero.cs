@@ -23,6 +23,7 @@ namespace OOP_RPG
             this.OriginalHP = 30;
             this.CurrentHP = 30;
             this.Gold = 100;
+            this.Speed = 10;
         }
 
         // These are the Properties of our Class.
@@ -34,7 +35,7 @@ namespace OOP_RPG
         public Weapon EquippedWeapon { get; set; }
         public Armor EquippedArmor { get; set; }
         public int Gold { get; set; }
-
+        public int Speed { get; private set; }
         public List<Armor> ArmorsBag { get; set; }
         public List<Weapon> WeaponsBag { get; set; }
 

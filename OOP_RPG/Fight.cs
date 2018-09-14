@@ -21,17 +21,17 @@ namespace OOP_RPG
             this.Monsters = new List<Monster>();
             this.hero = hero;
             this.game = game;
-            this.AddMonster("Squid", 9, 8, 20);
-            this.AddMonster("Dragon", 15, 10, 50);
-            this.AddMonster("Frog", 3, 2, 5);
-            this.AddMonster("Troll", 10, 8, 25);
+            this.AddMonster("Squid", 9, 8, 20, 13);
+            this.AddMonster("Dragon", 15, 10, 50, 15);
+            this.AddMonster("Frog", 3, 2, 5, 4);
+            this.AddMonster("Troll", 10, 8, 25, 7);
         }
 
         // method add new monster to the game
-        public void AddMonster(string name, int strength, int defense, int hp)
+        public void AddMonster(string name, int strength, int defense, int hp, int speed)
         {
 
-            this.Monsters.Add(new Monster(name, strength, defense, hp));
+            this.Monsters.Add(new Monster(name, strength, defense, hp, speed));
         }
 
         public void MonsterMenu()
@@ -87,8 +87,8 @@ namespace OOP_RPG
                 {
                     return;
                 }
-           }
-           
+            }
+
         }
 
         //private void ShowMonsterList()
@@ -109,9 +109,10 @@ namespace OOP_RPG
             this.monster = monster;
             Console.WriteLine();
             Console.WriteLine("You've encountered a " + monster.Name + "! " + monster.Strength + " Strength/" + monster.Defense + " Defense/" +
-            monster.CurrentHP + " HP. He has a loot of "+monster.Gold+" gold. What will you do?");
+            monster.CurrentHP + " HP " + monster.Speed + "/Speed. He has a loot of " + monster.Gold + " gold. What will you do?");
             Console.WriteLine("1. Fight");
             Console.WriteLine("2. Use potion");
+            Console.WriteLine("3. Escape monster.");
             var input = Console.ReadLine();
             if (input == "1")
             {
@@ -122,9 +123,33 @@ namespace OOP_RPG
                 hero.DrinkPotion();
                 this.Start(monster);
             }
+            else if (input == "3")
+            {
+                this.TryEscape();
+
+            }
             else
             {
+                this.Start(monster);
+            }
+        }
+
+        private void TryEscape()
+        {
+            if (hero.Speed > monster.Speed)
+            {
+                Console.WriteLine();
+                Console.WriteLine($"You Succesfuly escaped {monster.Name}.");
+                Console.WriteLine();
                 this.game.Main();
+            }
+            else
+            {
+                Console.WriteLine();
+                Console.WriteLine($"{monster.Name} is faster then you. You cannot escape.");
+                Console.WriteLine();
+                this.Start(monster);
+
             }
         }
 
@@ -147,6 +172,7 @@ namespace OOP_RPG
             Console.WriteLine();
             Console.BackgroundColor = ConsoleColor.DarkGreen;
             Console.WriteLine("You did " + damage + " damage!");
+            Console.WriteLine(monster.CurrentHP > 0 ? $"{monster.Name} HP now is {monster.CurrentHP}":"");
             Console.ResetColor();
             Console.WriteLine();
             if (monster.CurrentHP <= 0)
@@ -179,6 +205,8 @@ namespace OOP_RPG
             Console.WriteLine();
             Console.BackgroundColor = ConsoleColor.DarkRed;
             Console.WriteLine(monster.Name + " does " + damage + " damage!");
+            Console.WriteLine($"You HP now is {hero.CurrentHP}");
+            Console.WriteLine();
             Console.ResetColor();
             Console.WriteLine();
             if (hero.CurrentHP <= 0)
@@ -199,7 +227,7 @@ namespace OOP_RPG
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("*********VICTORY********");
             Console.WriteLine(monster.Name + " has been defeated! You win the battle!");
-            Console.WriteLine("You collected "+monster.Gold+" gold!");
+            Console.WriteLine("You collected " + monster.Gold + " gold!");
             Console.ResetColor();
             Console.WriteLine();
             hero.AddGold(monster.Gold);
@@ -229,7 +257,7 @@ namespace OOP_RPG
                     this.Start(monster);
                     return;
                 }
-               
+
             }
 
             game.Main();
