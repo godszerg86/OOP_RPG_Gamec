@@ -147,7 +147,19 @@ namespace OOP_RPG
         }
         
         public void Inventory(){
-            hero.ShowInventory();
+            Console.WriteLine();
+            Console.WriteLine("1. Drink potion.");
+            Console.WriteLine("2. Check inventory");
+            Console.WriteLine();
+            var input = Console.ReadLine();
+            if (input == "1")
+            {
+                hero.DrinkPotion();
+            } else if (input == "2")
+            {
+                hero.ShowInventory();
+            }
+            
             Console.WriteLine("Press any key to return to main menu.");
             Console.WriteLine();
             Console.ReadKey();
